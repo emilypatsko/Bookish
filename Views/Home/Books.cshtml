@@ -1,0 +1,34 @@
+@model BookViewModel
+@{
+    ViewData["Title"] = "Book Catalogue";
+    List <BookViewModel> Books = new List<BookViewModel>();
+    BookViewModel Book1 = new BookViewModel(1,"Moby Dick", 1851, "Herman Melville");
+    BookViewModel Book2 = new BookViewModel(2, "Deception Point", 2002, "Dan Brown");
+    Books.Add(Book1);
+    Books.Add(Book2);
+    ViewData["Books"] = Books;
+   
+}
+
+<div class="text-center">
+    <h1 class="display-4">Book Catalogue</h1>
+    @if (Books.Count > 0 ) {
+        <table>
+            <tr> 
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year</th>
+            </tr>
+            @foreach (var book in Books) {
+                <tr>
+                    <td> @book.ID </td>
+                    <td> @book.Title</td>
+                    <td> @book.Author</td>
+                    <td> @book.Year </td>
+                </tr>                
+            }  
+        </table>
+    }
+      
+</div>

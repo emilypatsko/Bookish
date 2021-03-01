@@ -15613,6 +15613,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\emipat\\Documents\\Training\\Bookish\\Views\\Home\\Books.cshtml",
+      "TargetPath": "Views\\Home\\Books.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\emipat\\Documents\\Training\\Bookish\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
