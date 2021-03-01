@@ -9,7 +9,7 @@ namespace Bookish.Models
         public string Author { get; set; }
 
         public BookViewModel(int id, string title, int year, string author) {
-            ID = id;
+            BookID = id;
             Title = title;
             Year = year;
             Author = author;
