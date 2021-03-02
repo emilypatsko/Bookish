@@ -1,13 +1,13 @@
-@model BookViewModel
+@* @model BookCatalogueViewModel *@
+@model BookModel
 @{
     ViewData["Title"] = "Book Catalogue";
-    List <BookViewModel> Books = new List<BookViewModel>();
-    BookViewModel Book1 = new BookViewModel(1,"Moby Dick", 1851, "Herman Melville");
-    BookViewModel Book2 = new BookViewModel(2, "Deception Point", 2002, "Dan Brown");
+    List<BookModel> Books = new List<BookModel>();
+    BookModel Book1 = new BookModel(1,"Moby Dick", 1851, "Herman Melville");
+    BookModel Book2 = new BookModel(2, "Deception Point", 2002, "Dan Brown");
     Books.Add(Book1);
     Books.Add(Book2);
-    ViewData["Books"] = Books;
-   
+    ViewData["Books"] = Books;   
 }
 
 <div class="text-center">
