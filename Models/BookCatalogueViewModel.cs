@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Bookish.Models {
     public class BookCatalogueViewModel {
-        public List<BookModel> BookCatalogue { get; set; }
+        public List<Book> BookCatalogue { get; set; }
 
         public BookCatalogueViewModel() {
-            BookCatalogue = new List<BookModel>();
+            BookCatalogue = new List<Book>();
         }
 
-        public BookCatalogueViewModel(List<BookModel> books) {
+        public BookCatalogueViewModel(List<Book> books) {
             BookCatalogue = books;
         }
     }

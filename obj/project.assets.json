@@ -5760,19 +5760,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\emipat\\.nuget\\packages\\": {}
+    "C:\\Users\\emipatadmin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\emipat\\Documents\\Training\\Bookish\\Bookish.csproj",
+      "projectUniqueName": "C:\\Users\\emipat\\Documents\\Training\\Bookish\\Bookish.csproj",
       "projectName": "Bookish",
-      "projectPath": "c:\\Users\\emipat\\Documents\\Training\\Bookish\\Bookish.csproj",
-      "packagesPath": "C:\\Users\\emipat\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\emipat\\Documents\\Training\\Bookish\\obj\\",
+      "projectPath": "C:\\Users\\emipat\\Documents\\Training\\Bookish\\Bookish.csproj",
+      "packagesPath": "C:\\Users\\emipatadmin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\emipat\\Documents\\Training\\Bookish\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\emipat\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\emipatadmin\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

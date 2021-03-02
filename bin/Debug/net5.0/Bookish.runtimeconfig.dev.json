@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\emipat\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\emipat\\.nuget\\packages"
+      "C:\\Users\\emipatadmin\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\emipatadmin\\.nuget\\packages"
     ]
   }
 }

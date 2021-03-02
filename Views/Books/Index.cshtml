@@ -1,12 +1,12 @@
 @* @model BookCatalogueViewModel *@
-@model BookModel
+@model Book
 @{
     ViewData["Title"] = "Book Catalogue";
-    List<BookModel> Books = new List<BookModel>();
-    BookModel Book1 = new BookModel(1,"Moby Dick", 1851, "Herman Melville");
+    List<Book> Books = new List<Book>();
+    @* BookModel Book1 = new BookModel(1,"Moby Dick", 1851, "Herman Melville");
     BookModel Book2 = new BookModel(2, "Deception Point", 2002, "Dan Brown");
     Books.Add(Book1);
-    Books.Add(Book2);
+    Books.Add(Book2); *@
     ViewData["Books"] = Books;   
 }
 
@@ -22,7 +22,7 @@
             </tr>
             @foreach (var book in Books) {
                 <tr>
-                    <td> @book.BookID </td>
+                    <td> @book.BookId </td>
                     <td> @book.Title</td>
                     <td> @book.Author</td>
                     <td> @book.Year </td>
