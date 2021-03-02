@@ -1,22 +1,23 @@
-@model Member
-@* @model MemberCatalogueViewModel *@
+@using Bookish.Models
+@* @model Member *@
+@model MemberCatalogueViewModel
 @{
     ViewData["Title"] = "Member Catalogue";
-    List <Member> Members = new List<Member>();
-    @* MemberModel Member1 = new MemberModel(1,"Emily", "Patsko", "emily@softwire.com", "07123456784");
+    @* List<Member> Members = new List<Member>();
+    MemberModel Member1 = new MemberModel(1,"Emily", "Patsko", "emily@softwire.com", "07123456784");
     MemberModel Member2 = new MemberModel(2,"Chloe", "Jones", "chloe@softwire.com", "07873124564");
     MemberModel Member3 = new MemberModel(3,"Hina", "Raja", "hina@softwire.com", "07873124264");
    
     Members.Add(Member1);
     Members.Add(Member2);
-    Members.Add(Member3); *@
+    Members.Add(Member3);
     
-    ViewData["Members"] = Members;   
+    ViewData["Members"] = Members;    *@
 }
 
 <div class="text-center">
     <h1 class="display-4">Member Catalogue</h1>
-    @if (Members.Count > 0 ) 
+    @if (Model.MemberCatalogue.Count > 0 ) 
     {
         <table>
             <tr> 
@@ -26,7 +27,7 @@
                 <th>Email Address</th>
                 <th>Contact Number</th>
             </tr>
-            @foreach (var member in Members) 
+            @foreach (var member in Model.MemberCatalogue) 
             {
                 <tr>
                     <td> @member.MemberId </td>

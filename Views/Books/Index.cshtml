@@ -1,18 +1,19 @@
 @* @model BookCatalogueViewModel *@
-@model Book
+@using Bookish.Models
+@model BookCatalogueViewModel
 @{
     ViewData["Title"] = "Book Catalogue";
-    List<Book> Books = new List<Book>();
-    @* BookModel Book1 = new BookModel(1,"Moby Dick", 1851, "Herman Melville");
+    @* List<Book> Books = new List<Book>();
+    BookModel Book1 = new BookModel(1,"Moby Dick", 1851, "Herman Melville");
     BookModel Book2 = new BookModel(2, "Deception Point", 2002, "Dan Brown");
     Books.Add(Book1);
-    Books.Add(Book2); *@
-    ViewData["Books"] = Books;   
+    Books.Add(Book2);
+    ViewData["Books"] = Books;    *@
 }
 
 <div class="text-center">
     <h1 class="display-4">Book Catalogue</h1>
-    @if (Books.Count > 0 ) {
+    @if (Model.BookCatalogue.Count > 0 ) {
         <table>
             <tr> 
                 <th>ID</th>
@@ -20,7 +21,7 @@
                 <th>Author</th>
                 <th>Year</th>
             </tr>
-            @foreach (var book in Books) {
+            @foreach (var book in Model.BookCatalogue) {
                 <tr>
                     <td> @book.BookId </td>
                     <td> @book.Title</td>
@@ -30,5 +31,5 @@
             }  
         </table>
     }
-      
+   
 </div>
