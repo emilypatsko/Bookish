@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Bookish.Models;
+using Bookish.Data;
 
 namespace Bookish.Controllers
 {
@@ -20,7 +21,33 @@ namespace Bookish.Controllers
     
         public IActionResult Index()
         {
+            BookCatalogueViewModel BookList = new BookCatalogueViewModel();
+            using (var LibraryCtx = new BookishContext())
+            {
+               BookList.BookCatalogue = LibraryCtx.Books.Take(10).ToList();          
+            }
+
+            return View(BookList);
+        }
+
+        public IActionResult AddBook() 
+        {
             return View();
+        }
+        [HttpPost]
+        public IActionResult AddBook(Book newbook) 
+        {
+            using (var LibraryCtx = new BookishContext())
+            {
+                var NewBook = new Book();
+                NewBook.Title = newbook.Title;
+                NewBook.Author = newbook.Author;
+                NewBook.Year = newbook.Year;
+
+                LibraryCtx.Books.Add(NewBook);
+                LibraryCtx.SaveChanges();                
+            }
+            return RedirectToAction("AddBook");
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
