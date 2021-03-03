@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Bookish.Models;
 using Bookish.Data;
+
 
 namespace Bookish.Controllers
 {
@@ -19,14 +21,53 @@ namespace Bookish.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        // public IActionResult Index()
+        // {
+        //     BookCatalogueViewModel BookList = new BookCatalogueViewModel();
+        //     using (var LibraryCtx = new BookishContext())
+        //     {
+        //         BookList.BookCatalogue = LibraryCtx.Books.Take(10).ToList();
+        //     }
+
+        //     return View(BookList);
+        // }
+        public IActionResult Index(string sortOrder, string searchString)
         {
-            BookCatalogueViewModel BookList = new BookCatalogueViewModel();
-            using (var LibraryCtx = new BookishContext())
+            ViewBag.TitleSortParm = sortOrder == "Title" ? "Title_desc" : "Title";
+            ViewBag.YearSortParm = sortOrder == "Year" ? "Year_desc" : "Year";
+            var LibraryCtx = new BookishContext();
+            var Books = from b in LibraryCtx.Books
+                        select b;
+
+            if (!String.IsNullOrEmpty(searchString))
             {
-                BookList.BookCatalogue = LibraryCtx.Books.Take(10).ToList();
+                Books = Books.Where(b => b.Title.Contains(searchString)
+                                       || b.Author.Contains(searchString)
+                                       || b.Year.ToString().Contains(searchString)
+                                       );
             }
 
+            switch (sortOrder)
+            {
+                case "Title":
+                    Books = Books.OrderBy(b => b.Title);
+                    break;
+                case "Title_desc":
+                    Books = Books.OrderByDescending(b => b.Title);
+                    break;
+                case "Year":
+                    Books = Books.OrderBy(b => b.Year);
+                    break;
+                case "Year_desc":
+                    Books = Books.OrderByDescending(b => b.Year);
+                    break;
+                default:
+                    Books = Books.OrderBy(b => b.BookId);
+                    break;
+            }
+
+            BookCatalogueViewModel BookList = new BookCatalogueViewModel();
+            BookList.BookCatalogue = Books.ToList();
             return View(BookList);
         }
 
@@ -49,8 +90,8 @@ namespace Bookish.Controllers
                     NewCopy.Book = newbook;
                     NewCopy.CheckedOut = false;
                     LibraryCtx.Copies.Add(NewCopy);
-                }       
-                else 
+                }
+                else
                 {
                     Copy NewCopy = new Copy();
                     Book SameBook = LibraryCtx.Books.Where(b => b.Title == newbook.Title && b.Author == newbook.Author && b.Year == newbook.Year).ToList().First();
