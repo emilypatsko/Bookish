@@ -6,6 +6,7 @@ namespace Bookish.Models
     public class Member { 
         public int MemberId { get; set; }
         [Required]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Required]
         public string Surname { get; set; }

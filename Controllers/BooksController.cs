@@ -21,16 +21,6 @@ namespace Bookish.Controllers
             _logger = logger;
         }
 
-        // public IActionResult Index()
-        // {
-        //     BookCatalogueViewModel BookList = new BookCatalogueViewModel();
-        //     using (var LibraryCtx = new BookishContext())
-        //     {
-        //         BookList.BookCatalogue = LibraryCtx.Books.Take(10).ToList();
-        //     }
-
-        //     return View(BookList);
-        // }
         public IActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.TitleSortParm = sortOrder == "Title" ? "Title_desc" : "Title";
@@ -75,6 +65,7 @@ namespace Bookish.Controllers
         {
             return View();
         }
+        
         [HttpPost]
         public IActionResult AddBook(Book newbook)
         {
@@ -103,8 +94,66 @@ namespace Bookish.Controllers
 
                 LibraryCtx.SaveChanges();
             }
-            return RedirectToAction("AddBook");
+            return RedirectToAction("AddBook");           
         }
+
+        public IActionResult Edit(int? id) {
+            var BookId = id;
+            var LibraryCtx = new BookishContext();
+            Book book = LibraryCtx.Books.Find(BookId);
+            if (book == null)
+            {
+                return RedirectToAction("Error");
+            }
+            return View(book);
+        }
+
+        // [HttpPost]
+        // public IActionResult Edit(int? id) {
+        //     return View(book);
+        // }
+
+        public IActionResult Details(int? id) {
+            var BookId = id;
+            var LibraryCtx = new BookishContext();
+            Book book = LibraryCtx.Books.Find(BookId);
+            if (book == null)
+            {
+                return RedirectToAction("Error");
+            }
+            return View(book);
+        }
+
+        public IActionResult Delete(int? id, bool? saveChangesError=false)
+        {
+            var BookId = id;
+            var LibraryCtx = new BookishContext();
+            Book book = LibraryCtx.Books.Find(BookId);
+            if (book == null)
+            {
+                return RedirectToAction("Error");
+            }
+            return View(book);
+        } 
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var BookId = id;
+            var LibraryCtx = new BookishContext();
+            Book book = LibraryCtx.Books.Find(BookId);
+            
+            LibraryCtx.Books.Remove(book);
+            List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
+            LibraryCtx.Copies.RemoveRange(copies);
+            foreach(var c in copies)
+            {
+                LibraryCtx.Checkouts.RemoveRange(LibraryCtx.Checkouts.Where(x => x.Copy == c).ToList());
+            }
+     
+            LibraryCtx.SaveChanges();            
+            return RedirectToAction("Index");            
+        } 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

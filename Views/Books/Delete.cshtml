@@ -1,0 +1,30 @@
+@model Book
+@{
+    ViewData["Title"] = "Delete a Book";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<div> 
+<form asp-controller="Books" asp-action="Delete" method="post">
+    <table class="table table-striped table-bordered">
+        <tr> 
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+        </tr>
+        <tr>
+            <td> @Model.BookId </td>
+            <td> @Model.Title</td>
+            <td> @Model.Author</td>
+            <td> @Model.Year </td>
+        </tr>
+    </table>
+
+    <h2>Are you sure you want to delete all entries of this book?</h2>
+    <input type="hidden" asp-for="BookId" /> <br />
+    <button type="submit">Delete</button>
+</form>   
+</div> 

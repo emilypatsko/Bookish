@@ -74,3 +74,6 @@ C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\In
 C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Members\Index.cshtml.g.cs
 C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\AddBook.cshtml.g.cs
 C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Members\AddMember.cshtml.g.cs
+C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\Delete.cshtml.g.cs
+C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\Details.cshtml.g.cs
+C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\Edit.cshtml.g.cs
