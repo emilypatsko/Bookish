@@ -122,21 +122,47 @@ namespace Bookish.Controllers
             return RedirectToAction("Index");
         }
 
-        // public IActionResult Details(int? id) {
-        //     var BookId = id;
-        //     var LibraryCtx = new BookishContext();
-        //     Book book = LibraryCtx.Books.Find(BookId);
-        //     if (book == null)
-        //     {
-        //         return RedirectToAction("Error");
-        //     }
-        //     List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
-        //      foreach(var c in copies)
-        //     {
-        //         List<Checkout> checkouts=LibraryCtx.Checkouts.Where(x => x.Copy == c).ToList();
-        //     }
-        //     return View(checkouts);
-        // }
+        public IActionResult Checkout(int? id) {
+            var BookId = id;
+            var LibraryCtx = new BookishContext();
+            Book book = LibraryCtx.Books.Find(BookId);
+            if (book == null)
+            {
+                return RedirectToAction("Error");
+            }
+            List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
+            List<Checkout> checkouts=new List<Checkout>();
+            CheckoutCatalogueViewModel CheckoutList = new CheckoutCatalogueViewModel();
+           
+            foreach (var copy in copies)
+            {
+                foreach (var check in checkouts)
+                {
+                    if (check.Copy==copy)
+                    {
+                        checkouts.Add(check);
+                    }
+                }
+            }
+            CheckoutList.CheckoutCatalogue = checkouts.ToList(); 
+            return View(CheckoutList);
+        }
+
+        public IActionResult Details(int? id) {
+            var BookId = id;
+            var LibraryCtx = new BookishContext();
+            Book book = LibraryCtx.Books.Find(BookId);
+            if (book == null)
+            {
+                return RedirectToAction("Error");
+            }
+            List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
+            
+            CopyCatalogueViewModel CopyList = new CopyCatalogueViewModel();
+           
+            CopyList.CopyCatalogue = copies.ToList(); 
+            return View(CopyList);
+        }
 
         public IActionResult Delete(int? id, bool? saveChangesError=false)
         {
@@ -157,7 +183,6 @@ namespace Bookish.Controllers
             using (var LibraryCtx = new BookishContext())
             {
                 Book book = LibraryCtx.Books.Find(BookId);
-                
                 LibraryCtx.Books.Remove(book);
                 List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
                 LibraryCtx.Copies.RemoveRange(copies);

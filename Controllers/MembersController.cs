@@ -45,32 +45,32 @@ namespace Bookish.Controllers
             return RedirectToAction("AddMember");
         }
 
-        // public IActionResult Delete(int? id, bool? saveChangesError=false)
-        // {
-        //     var MemberId = id;
-        //     var LibraryCtx = new BookishContext();
-        //     Member member = LibraryCtx.Members.Find(MemberId);
-        //     if (member == null)
-        //     {
-        //         return RedirectToAction("Error");
-        //     }
-        //     return View(member);
-        // } 
+        public IActionResult Delete(int? id, bool? saveChangesError=false)
+        {
+            var MemberId = id;
+            var LibraryCtx = new BookishContext();
+            Member member = LibraryCtx.Members.Find(MemberId);
+            if (member == null)
+            {
+                return RedirectToAction("Error");
+            }
+            return View(member);
+        } 
 
-        // [HttpPost]
-        // public IActionResult Delete(int id)
-        // {
-        //     var MemberId = id;
-        //     var LibraryCtx = new BookishContext();
-        //     Member member = LibraryCtx.Members.Find(MemberId);
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var MemberId = id;
+            var LibraryCtx = new BookishContext();
+            Member member = LibraryCtx.Members.Find(MemberId);
             
-        //     LibraryCtx.Members.Remove(member);
-        //     List<Copy> checkouts = LibraryCtx.Checkouts.Where(b => b.Member == member).ToList();
-        //     LibraryCtx.Checkouts.RemoveRange(checkouts);
+            LibraryCtx.Members.Remove(member);
+            List<Checkout> checkouts = LibraryCtx.Checkouts.Where(m => m.Member == member).ToList();
+            LibraryCtx.Checkouts.RemoveRange(checkouts);
      
-        //     LibraryCtx.SaveChanges();            
-        //     return RedirectToAction("Index");            
-        // } 
+            LibraryCtx.SaveChanges();            
+            return RedirectToAction("Index");            
+        } 
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
