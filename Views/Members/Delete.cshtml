@@ -1,0 +1,34 @@
+@model Member
+@{
+    ViewData["Title"] = "Delete a Member";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<div> 
+<form asp-controller="Members" asp-action="Delete" method="post">
+    <table class="table table-striped table-bordered">
+        <tr> 
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Email Address</th>
+            <th>Contact Number</th>
+        </tr>
+        <tr>
+            <td> @Model.MemberId </td>
+            <td> @Model.FirstName</td>
+            <td> @Model.Surname</td>
+            <td> @Model.Email </td>
+            <td> @Model.ContactNumber </td>
+        </tr>
+    </table>
+
+    <h2>Are you sure you want to delete all entries of this member?</h2>
+    <input type="hidden" asp-for="MemberId" /> <br />
+    <div class='text-center'>
+        <button type="submit">Delete</button>
+    </div>
+</form>   
+</div> 

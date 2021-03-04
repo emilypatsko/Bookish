@@ -5,6 +5,7 @@
 
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
+@* </div>
     <form asp-controller="Members" asp-action="AddMember" method="post">
         <label asp-for="FirstName">First Name</label>
         <input asp-for="FirstName" /> <br />
@@ -13,9 +14,32 @@
         <label asp-for="Email">Email Address</label>
         <input type="email" asp-for="Email" /> <br />
         <label asp-for="ContactNumber">Contact Number</label>
-        <input type="typ" asp-for="ContactNumber" /> <br />
+        <input type="tel" asp-for="ContactNumber" /> <br />
 
         <button type="submit">Submit</button>
     </form>
-</div>
+</div> *@
 
+<div class="text-left">
+    <form asp-controller="Members" asp-action="AddMember" method="post">
+        <div class="form-group">   
+            <label asp-for="FirstName"> First Name </label>
+            <input asp-for="FirstName" class="form-control" /> <br />
+        </div>  
+        <div class="form-group">      
+            <label asp-for="Email">Surname</label>
+            <input asp-for="Surname" class="form-control" /> <br />
+        </div>
+        <div class="form-group">      
+            <label asp-for="Email">Email Address</label>
+            <input type="Email" asp-for="Email" class="form-control" /> <br />
+        </div>   
+        <div class="form-group">      
+            <label asp-for="ContactNumber">Contact Number</label>
+            <input type="tel" asp-for="ContactNumber" class="form-control" /> <br />
+        </div> 
+        <div class="text-center"> 
+            <button type="submit">Save</button> 
+        </div>         
+    </form>
+</div>

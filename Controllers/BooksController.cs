@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Bookish.Models;
 using Bookish.Data;
 
-
 namespace Bookish.Controllers
 {
     public class BooksController : Controller
@@ -108,21 +107,36 @@ namespace Bookish.Controllers
             return View(book);
         }
 
-        // [HttpPost]
-        // public IActionResult Edit(int? id) {
-        //     return View(book);
-        // }
-
-        public IActionResult Details(int? id) {
-            var BookId = id;
-            var LibraryCtx = new BookishContext();
-            Book book = LibraryCtx.Books.Find(BookId);
-            if (book == null)
+        [HttpPost]
+        public IActionResult Edit(Book book) {            
+            using (var LibraryCtx = new BookishContext()) 
             {
-                return RedirectToAction("Error");
+                var BookId = book.BookId;
+                Book bookToUpdate = LibraryCtx.Books.Find(BookId);
+                bookToUpdate.Title = book.Title;
+                bookToUpdate.Author = book.Author;
+                bookToUpdate.Year = book.Year;
+                LibraryCtx.SaveChanges();
             }
-            return View(book);
+
+            return RedirectToAction("Index");
         }
+
+        // public IActionResult Details(int? id) {
+        //     var BookId = id;
+        //     var LibraryCtx = new BookishContext();
+        //     Book book = LibraryCtx.Books.Find(BookId);
+        //     if (book == null)
+        //     {
+        //         return RedirectToAction("Error");
+        //     }
+        //     List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
+        //      foreach(var c in copies)
+        //     {
+        //         List<Checkout> checkouts=LibraryCtx.Checkouts.Where(x => x.Copy == c).ToList();
+        //     }
+        //     return View(checkouts);
+        // }
 
         public IActionResult Delete(int? id, bool? saveChangesError=false)
         {
@@ -140,18 +154,20 @@ namespace Bookish.Controllers
         public IActionResult Delete(int id)
         {
             var BookId = id;
-            var LibraryCtx = new BookishContext();
-            Book book = LibraryCtx.Books.Find(BookId);
-            
-            LibraryCtx.Books.Remove(book);
-            List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
-            LibraryCtx.Copies.RemoveRange(copies);
-            foreach(var c in copies)
+            using (var LibraryCtx = new BookishContext())
             {
-                LibraryCtx.Checkouts.RemoveRange(LibraryCtx.Checkouts.Where(x => x.Copy == c).ToList());
-            }
-     
-            LibraryCtx.SaveChanges();            
+                Book book = LibraryCtx.Books.Find(BookId);
+                
+                LibraryCtx.Books.Remove(book);
+                List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
+                LibraryCtx.Copies.RemoveRange(copies);
+                foreach(var c in copies)
+                {
+                    LibraryCtx.Checkouts.RemoveRange(LibraryCtx.Checkouts.Where(x => x.Copy == c).ToList());
+                }
+        
+                LibraryCtx.SaveChanges(); 
+            }           
             return RedirectToAction("Index");            
         } 
 

@@ -1,20 +1,31 @@
-@model Book
+@* @model CheckoutCatalogueViewModel
 
 <div class="text-center">
     <h1 class="display-4">@Model.Title</h1>
 
     <table class="table table-striped table-bordered">
     <tr> 
-        <th>ID</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Year</th>
+        <th>Checkout Id</th>
+        <th>Copy Id</th>
+        <th>Book Title</th>
+        <th>Still Checked Out? </th>
+        <th>Member First Name</th>
+        <th>Member Surname</th>
+        <th>Checkout Date</th>
+        <th>Due Date</th>
+        <th>Returned?</th>
     </tr>
     <tr>
-        <td> @Model.BookId </td>
-        <td> @Model.Title</td>
-        <td> @Model.Author</td>
-        <td> @Model.Year </td>
+        <td> @Model.CheckoutId </td>
+        <td> @Model.Copy.CopyId</td>
+        <td> @Model.Copy.Book.Title</td>
+        <td> @Model.Copy.CheckedOut</td>
+        <td> @Model.Member.FirstName</td>
+        <td> @Model.Member.Surname</td>
+        <td> @Model.CheckoutDate </td>
+        <td> @Model.DueDate</td>
+        <td> @Model.Returned</td>
     </tr>
 </table>
 </div>
+ *@
