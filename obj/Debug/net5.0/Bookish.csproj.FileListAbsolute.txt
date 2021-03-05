@@ -161,3 +161,6 @@ C:\users\chljon\training\bookish\bookish\obj\Debug\net5.0\Razor\Views\Books\Deta
 C:\users\chljon\training\bookish\bookish\obj\Debug\net5.0\Razor\Views\Books\Checkout.cshtml.g.cs
 C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\Checkout.cshtml.g.cs
 C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\AddCopy.cshtml.g.cs
+C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Members\Edit.cshtml.g.cs
+C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Members\Account.cshtml.g.cs
+C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\CheckoutCopy.cshtml.g.cs

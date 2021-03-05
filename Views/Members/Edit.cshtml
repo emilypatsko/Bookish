@@ -1,0 +1,39 @@
+@model Member
+@{
+    ViewData["Title"] = "Edit Member";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<div class="text-left">
+    <form asp-controller="Members" asp-action="Edit" method="post">
+        <div class="form-group">
+            <input type="hidden" asp-for="MemberId" class="form-control" /> <br />
+        </div>  
+        <div class="form-group">   
+            <label asp-for="FirstName"> </label>
+            <input asp-for="FirstName" class="form-control" /> <br />
+        </div>  
+        <div class="form-group">      
+            <label asp-for="Surname"></label>
+            <input asp-for="Surname" class="form-control" /> <br />
+        </div>
+        <div class="form-group">      
+            <label asp-for="Email"></label>
+            <input type="email" asp-for="Email" class="form-control" /> <br />
+        </div> 
+        <div class="form-group">      
+            <label asp-for="ContactNumber"></label>
+            <input type="number" asp-for="ContactNumber" class="form-control" /> <br />
+        </div>
+        <div class='text-center'>  
+        <button type="submit">Save</button>  
+        </div>       
+    </form>
+</div>
+
+<div class="text-center">
+    @Html.ActionLink("Back to Member Catalogue", "Index") 
+</div>

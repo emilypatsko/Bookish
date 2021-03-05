@@ -15,16 +15,5 @@ namespace Bookish.Models
         [Required]
         public string ContactNumber { get; set; }
 
-        // public MemberModel(int id, string firstname, string surname, string email, string contactnumber) {
-        //     MemberID = id;
-        //     FirstName = firstname;
-        //     Surname = surname;
-        //     Email = email;
-        //     ContactNumber=contactnumber;
-        // }
-
-        // public MemberModel() {
-
-        // }
     }
 }

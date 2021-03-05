@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Data;
 using System.Threading.Tasks;
@@ -8,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Bookish.Models;
 using Bookish.Data;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bookish.Controllers
 {
@@ -161,27 +165,44 @@ namespace Bookish.Controllers
 
 
         public IActionResult Checkout(int? id) {
-            var BookId = id;
+            // var BookId = id;
+            // var LibraryCtx = new BookishContext();
+            // Book book = LibraryCtx.Books.Find(BookId);
+            // if (book == null)
+            // {
+            //     return RedirectToAction("Error");
+            // }
+            // List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
+            // List<Checkout> checkouts=new List<Checkout>();
+            // CheckoutCatalogueViewModel CheckoutList = new CheckoutCatalogueViewModel();
+           
+            // foreach (var copy in copies)
+            // {
+            //     foreach (var check in checkouts)
+            //     {
+            //         if (check.Copy==copy)
+            //         {
+            //             checkouts.Add(check);
+            //         }
+            //     }
+            // }
+            // CheckoutList.CheckoutCatalogue = checkouts.ToList(); 
+            // return View(CheckoutList);
+
+            var CopyId = id;
             var LibraryCtx = new BookishContext();
-            Book book = LibraryCtx.Books.Find(BookId);
-            if (book == null)
+            Copy copy = LibraryCtx.Copies.Find(CopyId);
+            if (copy == null)
             {
                 return RedirectToAction("Error");
             }
-            List<Copy> copies = LibraryCtx.Copies.Where(b => b.Book == book).ToList();
-            List<Checkout> checkouts=new List<Checkout>();
+            
             CheckoutCatalogueViewModel CheckoutList = new CheckoutCatalogueViewModel();
-           
-            foreach (var copy in copies)
-            {
-                foreach (var check in checkouts)
-                {
-                    if (check.Copy==copy)
-                    {
-                        checkouts.Add(check);
-                    }
-                }
-            }
+            var checkouts = LibraryCtx.Checkouts.Where(c => c.Copy.CopyId == CopyId)
+                                                   .Include(c => c.Copy)
+                                                   .Include(c => c.Copy.Book)
+                                                   .Include(c => c.Member);
+                    
             CheckoutList.CheckoutCatalogue = checkouts.ToList(); 
             return View(CheckoutList);
         }
@@ -200,6 +221,46 @@ namespace Bookish.Controllers
            
             CopyList.CopyCatalogue = copies.ToList(); 
             return View(CopyList);
+        }
+
+        public IActionResult CheckoutCopy(int? id) {
+            var CopyId = id;
+            Copy CopyToCheckout = new Copy();
+            using (var LibraryCtx = new BookishContext())
+            {
+                CopyToCheckout = LibraryCtx.Copies.Find(CopyId);
+                return View(CopyToCheckout);
+            }            
+        }
+        
+        [HttpPost]
+        public IActionResult CheckoutCopy(int copyid, int memberid) {
+
+            var CopyId = copyid;
+            var MemberId = memberid;
+            Copy CopyToCheckout = new Copy();
+            Member MemberToCheckout = new Member();            
+
+            using (var LibraryCtx = new BookishContext()) {
+                // change this copy to being checked out
+                CopyToCheckout = LibraryCtx.Copies.Find(CopyId);
+                CopyToCheckout.CheckedOut = true;
+
+                MemberToCheckout = LibraryCtx.Members.Find(MemberId);
+                Checkout NewCheckout = new Checkout();
+                NewCheckout.Copy = CopyToCheckout;
+                NewCheckout.Member = MemberToCheckout;
+                NewCheckout.CheckoutDate = DateTime.Now;
+                NewCheckout.DueDate = DateTime.Now.AddDays(14);
+                NewCheckout.Returned = false;
+
+                LibraryCtx.Checkouts.Add(NewCheckout);
+                LibraryCtx.SaveChanges();       
+
+                // want to get the bookID of the copy, something like Copy.Book.BookId
+                var BookToDisplay = LibraryCtx.Copies.Where(c => c.CopyId == copyid).Include(c => c.Book).First();   
+                return RedirectToAction("Details", new { id = BookToDisplay.Book.BookId});     
+            }                    
         }
 
         public IActionResult Delete(int? id, bool? saveChangesError=false)

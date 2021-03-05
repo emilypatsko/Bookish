@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Bookish.Models;
 using Bookish.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bookish.Controllers
 {
@@ -72,6 +73,51 @@ namespace Bookish.Controllers
             return RedirectToAction("Index");            
         } 
 
+         public IActionResult Edit(int? id) {
+            var MemberId = id;
+            var LibraryCtx = new BookishContext();
+            Member member = LibraryCtx.Members.Find(MemberId);
+            if (member == null)
+            {
+                return RedirectToAction("Error");
+            }
+            return View(member);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Member member) {            
+            using (var LibraryCtx = new BookishContext()) 
+            {
+                var MemberId = member.MemberId;
+                Member memberToUpdate = LibraryCtx.Members.Find(MemberId);
+                memberToUpdate.FirstName = member.FirstName;
+                memberToUpdate.Surname = member.Surname;
+                memberToUpdate.Email = member.Email;
+                memberToUpdate.ContactNumber = member.ContactNumber;
+
+                LibraryCtx.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Account(int? id) {
+            var MemberId = id;
+            var LibraryCtx = new BookishContext();
+            Member member = LibraryCtx.Members.Find(MemberId);
+            if (member == null)
+            {
+                return RedirectToAction("Error");
+            }
+
+            var CheckoutsWithCopies = LibraryCtx.Checkouts.Where(c => c.Member == member)
+                                                          .Include(c => c.Copy)
+                                                          .Include(c => c.Copy.Book);
+            List<Checkout> checkouts = CheckoutsWithCopies.ToList();
+            CheckoutCatalogueViewModel CheckoutList = new CheckoutCatalogueViewModel();
+            CheckoutList.CheckoutCatalogue = checkouts;
+
+            return View(CheckoutList);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

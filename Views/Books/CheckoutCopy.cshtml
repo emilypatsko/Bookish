@@ -1,0 +1,44 @@
+@model Copy
+@{
+    ViewData["Title"] = "Checkout Copy";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<div class="text-left">
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <input type="hidden" asp-for="CopyId" class="form-control" /> <br />
+        </div>  
+
+        <div class="form-group">      
+            <label>Who would you like to check this book out to?</label>
+            <input type="number" class="form-control" name="memberid"/> <br />
+        </div>
+
+        @* <div class="input-group mb-3 form-group">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Members</label>
+            </div>
+            
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected>Choose...</option>
+                @foreach (var member in )
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div> *@
+
+        <div class="text-center">
+            <button type="submit">Submit</button>   
+        </div>
+    }
+</div>
+
+<div class="text-center">
+    @Html.ActionLink("Back to Catalogue", "Index") 
+</div>

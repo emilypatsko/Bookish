@@ -21,8 +21,10 @@
             <td> @copy.CopyId </td>
             <td> @copy.CheckedOut </td>
             <td>
-                @Html.ActionLink("Checkout History", "Checkout", new { id=copy.Book.BookId }) |
-                @Html.ActionLink("Delete Copy", "DeleteCopy", new { id=copy.Book.BookId }) 
+                @Html.ActionLink("Checkout History", "Checkout", new { id=copy.CopyId }) |
+                @Html.ActionLink("Delete Copy", "DeleteCopy", new { id=copy.Book.BookId }) |
+                @Html.ActionLink("Checkout Copy", "CheckoutCopy", new { id=copy.CopyId })
+
             </td>
         </tr>
     }
