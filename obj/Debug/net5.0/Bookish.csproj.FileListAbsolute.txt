@@ -159,3 +159,5 @@ C:\users\chljon\training\bookish\bookish\obj\Debug\net5.0\Bookish.pdb
 C:\users\chljon\training\bookish\bookish\obj\Debug\net5.0\Bookish.genruntimeconfig.cache
 C:\users\chljon\training\bookish\bookish\obj\Debug\net5.0\Razor\Views\Books\Details.cshtml.g.cs
 C:\users\chljon\training\bookish\bookish\obj\Debug\net5.0\Razor\Views\Books\Checkout.cshtml.g.cs
+C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\Checkout.cshtml.g.cs
+C:\Users\emipat\Documents\Training\Bookish\obj\Debug\net5.0\Razor\Views\Books\AddCopy.cshtml.g.cs

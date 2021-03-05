@@ -1,9 +1,15 @@
 @using Bookish.Models
 @model CopyCatalogueViewModel
-<div class="text-center">
-    <h1 class="display-4">Copies of @Model.CopyCatalogue[0].Book.Title</h1>
 
-    <table class="table table-striped table-bordered"
+@{
+    ViewData["CopiesAvailable"] = @Model.CopyCatalogue.Where(c => c.CheckedOut == false).ToList().Count;
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.CopyCatalogue[0].Book.Title</h1>
+    <h5>There are @Model.CopyCatalogue.Count copies of this book, and @ViewData["CopiesAvailable"] available copies. </h5>    
+
+    <table class="table table-striped table-bordered">
         <tr> 
             <th>Copy Id</th>
             <th>Checked out?</th>
@@ -21,6 +27,7 @@
         </tr>
     }
     </table>
-    @Html.ActionLink("Add a New Copy", "AddCopy", new { id=Model.CopyCatalogue[0].Book.BookId }) 
+    @Html.ActionLink("Add a New Copy", "AddCopy", new { id = Model.CopyCatalogue[0].Book.BookId }) <br />
+    @Html.ActionLink("Back to Catalogue", "Index") 
 </div>
 

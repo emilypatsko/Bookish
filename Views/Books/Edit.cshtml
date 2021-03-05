@@ -9,8 +9,7 @@
 
 <div class="text-left">
     <form asp-controller="Books" asp-action="Edit" method="post">
-        <div class="form-group">   
-            <label asp-for="BookId"> </label>
+        <div class="form-group">
             <input type="hidden" asp-for="BookId" class="form-control" /> <br />
         </div>  
         <div class="form-group">   
@@ -29,4 +28,8 @@
         <button type="submit">Save</button>  
         </div>       
     </form>
+</div>
+
+<div class="text-center">
+    @Html.ActionLink("Back to Catalogue", "Index") 
 </div>

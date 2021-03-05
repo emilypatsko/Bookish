@@ -122,6 +122,44 @@ namespace Bookish.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult AddCopy(int? id)
+        {
+            var BookId = id;
+            var LibraryCtx = new BookishContext();
+            Book book = LibraryCtx.Books.Find(BookId);
+            if (book == null)
+            {
+                return RedirectToAction("Error");
+            }
+            return View(book);
+        }
+        
+        [HttpPost]
+        public IActionResult AddCopy(int id, int NumOfCopies)
+        {
+            var BookId = id;
+            using (var LibraryCtx = new BookishContext())
+            {                
+                Book book = LibraryCtx.Books.Find(BookId);
+                if (book == null)
+                {
+                    return RedirectToAction("Error");
+                }
+
+                for (var i = 0; i < NumOfCopies; i++)
+                {
+                    Copy NewCopy = new Copy();
+                    NewCopy.Book = book;
+                    NewCopy.CheckedOut = false;
+                    LibraryCtx.Copies.Add(NewCopy);
+                }
+
+                LibraryCtx.SaveChanges();
+            }
+            return RedirectToAction("Details", new { id = BookId});          
+        }
+
+
         public IActionResult Checkout(int? id) {
             var BookId = id;
             var LibraryCtx = new BookishContext();
