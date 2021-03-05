@@ -1,0 +1,33 @@
+@using Bookish.Models
+@model CheckoutCatalogueViewModel
+<div class="text-center">
+    <h1 class="display-4">Checkouts</h1>
+
+    <table class="table table-striped table-bordered"
+        <tr> 
+            <th>Copy Id</th>
+            <th>Book Title</th>
+            <th>Still Checked Out? </th>
+            <th>Member First Name</th>
+            <th>Member Surname</th>
+            <th>Checkout Date</th>
+            <th>Due Date</th>
+            <th>Returned?</th>
+        </tr>
+    @foreach (var checkout in Model.CheckoutCatalogue) 
+    {
+        <tr>
+            <td> @checkout.CheckoutId </td>
+            <td> @checkout.Copy.CopyId</td>
+            <td> @checkout.Copy.Book.Title</td>
+            <td> @checkout.Copy.CheckedOut</td>
+            <td> @checkout.Member.FirstName</td>
+            <td> @checkout.Member.Surname</td>
+            <td> @checkout.CheckoutDate </td>
+            <td> @checkout.DueDate</td>
+            <td> @checkout.Returned</td>
+        </tr>
+    }
+    </table>
+</div>
+
